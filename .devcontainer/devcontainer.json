@@ -1,8 +1,8 @@
 {
 	"name": "singhub-ui",
 	"build": { "dockerfile": "Dockerfile" },
-	"remoteUser": "node",
-	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot",
+	"remoteUser": "root",
+	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot && npm install",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/git:1": {},
@@ -19,6 +19,6 @@
 	},
 
 	"mounts": [
-		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
 	]
 }
