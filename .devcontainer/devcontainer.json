@@ -1,0 +1,24 @@
+{
+	"name": "singhub-ui",
+	"build": { "dockerfile": "Dockerfile" },
+	"remoteUser": "node",
+	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/python:1": {}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python"
+			]
+		}
+	},
+
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+	]
+}
