@@ -1,14 +1,17 @@
+import React from 'react';
 import './App.css'
-import './style.css'
+import './singhub.css'
+import { DatePickerWithRange } from './singhub/search/DatePickerWithRang';
+
 
 function App() {
 
   return (
     <>
       <div className="sticky mx-0 top-0 right-0 left-0 w-screen border-b border-gray-300 bg-white pt-10 pb-4">
-        <div className="flex items-center">
-          <div className="flex mx-auto max-w-xl pb-4">
-            <div className="flex items-center rounded-full rounded-r-none border border-r-0 border-gray-300">
+        <div className="max-w-xl mx-auto">
+          <div className="flex pb-4">
+            <div className="flex items-center rounded-full rounded-r-none border border-r-0 border-gray-300 focus-within:ring-gray-400 focus-within:border-gray-400">
               <div className="flex items-center px-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" className="size-5 stroke-gray-600 stroke-[1.5]">
                   <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -33,23 +36,25 @@ function App() {
               </svg>
             </button>
           </div>
-        </div>
 
-        {/* <div className="flex items-center mx-auto w-80 border mb-4 rounded-md shadow-sm border-gray-300 focus-within:ring-gray-400 focus-within:border-gray-400">
-          <input type="text" placeholder="Start date" className="w-1/2 px-3 py-2 border-0 rounded-md text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-0" />
-          <span className="mx-2 text-gray-500">&rarr;</span>
-          <input type="text" placeholder="End date" className="w-1/2 px-3 py-2 border-0 rounded-md text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-0" />
-          <span className="mx-2 text-gray-500 hover:!border-gray-300 active:!border-gray-300">
-            <svg fill="none" viewBox="0 0 24 24" className="size-5 stroke-current stroke-1.5">
-              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </span>
-        </div>
+          {/* <div className="flex items-center w-62 border mb-4 rounded-md shadow-sm border-gray-300 focus-within:ring-gray-400 focus-within:border-gray-400">
+            <input type="text" placeholder="20/02/2025" className="w-1/2 p-2 border-0 rounded-md text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-0" />
+            <span className="text-gray-500">&rarr;</span>
+            <input type="text" placeholder="20/02/2025" className="w-1/2 p-2 border-0 rounded-md text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-0" />
+            <span className="mr-2 text-gray-500 hover:!border-gray-300 active:!border-gray-300">
+              <svg fill="none" viewBox="0 0 24 24" className="size-5 stroke-current stroke-1.5">
+                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </span>
+          </div> */}
 
-        <div className="flex space-x-4 text-sm mx-auto max-w-xl">
-          <span className="bg-gray-400 hover:bg-blue-500 text-white px-2 py-1 rounded-full font-medium">Inline Skating</span>
-          <span className="bg-gray-400 hover:bg-blue-500 text-white px-2 py-1 rounded-full font-medium">Table Tennis</span>
-        </div> */}
+          <DatePickerWithRange id="search-date-range" className="mb-4 w-65" />
+
+          <div className="flex space-x-4 text-sm">
+            <span className="bg-gray-400 hover:bg-blue-500 text-white px-2 py-1 rounded-full font-medium">Inline Skating</span>
+            <span className="bg-gray-400 hover:bg-blue-500 text-white px-2 py-1 rounded-full font-medium">Table Tennis</span>
+          </div>
+        </div>
       </div>
 
       <div id="add-chat-btn" className="mx-auto max-w-4xl flex items-end justify-end">
