@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+.base-button {
+  @apply !bg-white focus:!outline-none
+}
+
+.bg-popover {
+  @apply border-gray-300
+}

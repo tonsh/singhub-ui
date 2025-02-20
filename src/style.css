@@ -1,5 +1,0 @@
-@import 'tailwindcss';
-
-.base-button {
-  @apply bg-gray-100 focus:!outline-none
-}
