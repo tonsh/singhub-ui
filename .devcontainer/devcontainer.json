@@ -2,7 +2,7 @@
 	"name": "singhub-ui",
 	"build": { "dockerfile": "Dockerfile" },
 	"remoteUser": "root",
-	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot && npm install",
+	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot && make reinstall",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/git:1": {},
@@ -14,6 +14,7 @@
 			"extensions": [
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
+				"ms-vscode.makefile-tools",
 				"dbaeumer.vscode-eslint",
 				"bradlc.vscode-tailwindcss",
 				"esbenp.prettier-vscode"
