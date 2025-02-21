@@ -51,13 +51,13 @@ export function DatePickerWithRange({ className, id="date" }: DatePickerWithRang
                 format(date.from, "LLL dd, y")
               )
             ) : (
-              <span>Pick a date</span>
+              <span> Start Date <span className="text-gray-500 px-1">&rarr;</span> End Date </span>
             )}
 
             <CalendarIcon />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-auto p-0 border-gray-300" align="start">
           <Calendar
             initialFocus
             mode="range"
@@ -66,15 +66,18 @@ export function DatePickerWithRange({ className, id="date" }: DatePickerWithRang
             onSelect={setDate}
             numberOfMonths={2}
             disabled={(date) => date < new Date()}
+            showOutsideDays={false}
+            fromMonth={new Date()}
+            toMonth={new Date(new Date().setMonth(new Date().getMonth() + 3))}  // 最大时间范围 3 个月
             classNames={{
-              months: "flex flex-col sm:flex-row gap-2",
-              head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
-              day_range_start: "day-range-start aria-selected:bg-primary aria-selected:text-primary-foreground",
-              day_range_end: "day-range-end aria-selected:bg-primary aria-selected:text-primary-foreground",
-              day_selected:  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-              day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
-              nav_button_previous: "absolute left-1",
-              nav_button_next: "absolute right-1",
+              months: "flex flex-col sm:flex-row gap-4",  // 月份之间 gap-2 改为 gap-4
+              head_cell: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",  // 月份头部单元格间隔改为 w-9
+              day_range_start: "day-range-start !border-1 !border-blue-500",  // 开始日期的边框改为蓝色
+              day_range_end: "day-range-end !border-1 !border-blue-500", // 结束日期的边框改为蓝色
+              day_selected: "bg-primary text-blue-500 hover:bg-primary hover:text-blue-500 focus:bg-primary focus:text-blue-500",  // 选中日期的文字 hover & focus 时颜色改为蓝色
+              day_range_middle: "aria-selected:bg-accent aria-selected:text-blue-500",  // 所有选中日期的文字颜色改为蓝色
+              nav_button_previous: "absolute left-1 disabled:hidden",  // 上一页按钮隐藏
+              nav_button_next: "absolute right-1 disabled:hidden",  // 下一页按钮隐藏
             }}
           />
         </PopoverContent>
