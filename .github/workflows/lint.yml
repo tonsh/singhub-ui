@@ -1,0 +1,32 @@
+name: lint
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**/*.{ts,tsx}'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '**/*.{ts,tsx}'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: |
+        npm install
+        make lint
