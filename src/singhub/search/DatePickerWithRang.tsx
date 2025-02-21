@@ -37,10 +37,7 @@ export function DatePickerWithRange({ className, id="date" }: DatePickerWithRang
           <Button
             id={id}
             variant={"outline"}
-            className={cn(
-              "base-button h-10 !p-2 !gap-0 !font-normal text-left text-gray-400 !border-gray-300 rounded-md hover:text-gray-400 active:!border-gray-400",
-              !date && "text-muted-foreground"
-            )}
+            className={cn("base-button filter-button", !date && "text-muted-foreground")}
           >
             {date?.from ? (
               date.to ? (

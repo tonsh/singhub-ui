@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css'
 import './singhub.css'
 import { DatePickerWithRange } from './singhub/search/DatePickerWithRang';
-
+import { TimeSlot } from './singhub/search/TimeSlot';
 
 function App() {
 
@@ -48,7 +48,12 @@ function App() {
             </span>
           </div> */}
 
-          <DatePickerWithRange id="search-date-range" className="mb-4 w-65" />
+          <div className="flex space-x-4">
+            <DatePickerWithRange id="search-date-range" className="mb-4 w-65" />
+            <TimeSlot className="mb-4 w-75" />
+          </div>
+
+          {/* <button>Apply</button> */}
 
           <div className="flex space-x-4 text-sm">
             <span className="bg-gray-400 hover:bg-blue-500 text-white px-2 py-1 rounded-full font-medium">Inline Skating</span>

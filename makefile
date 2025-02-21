@@ -5,6 +5,6 @@ lint:
 
 install:
 	rm -rf src/components/ui
-	npx shadcn@canary add -y calendar popover
+	npx shadcn@canary add -y calendar popover select
 	rm -rf node_modules package-lock.json
 	npm install --legacy-peer-deps
