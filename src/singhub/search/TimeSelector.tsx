@@ -13,11 +13,10 @@ export function TimeSelector({ className }: { className: string }) {
     return (
         <Select>
             <SelectTrigger className={cn("base-button filter-button", className)}>
-                <span className="text-gray-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-5 stroke-1.5 stroke-current">
-                        <path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-5 stroke-1.5 stroke-gray-400">
+                    <path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+
                 <SelectValue placeholder="Any Time" />
             </SelectTrigger>
             <SelectContent className="border-gray-300">
