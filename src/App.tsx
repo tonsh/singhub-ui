@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css'
 import './singhub.css'
 import { DatePickerWithRange } from './singhub/search/DatePickerWithRang';
-import { TimeSlot } from './singhub/search/TimeSlot';
+import { TimeSelector } from './singhub/search/TimeSelector';
+import { GenderSelector } from './singhub/search/GenderSelector';
 
 function App() {
 
@@ -50,7 +51,8 @@ function App() {
 
           <div className="flex space-x-4">
             <DatePickerWithRange id="search-date-range" className="mb-4 w-65" />
-            <TimeSlot className="mb-4 w-75" />
+            <TimeSelector className="mb-4 w-55" />
+            <GenderSelector className="mb-4 w-55" />
           </div>
 
           {/* <button>Apply</button> */}
