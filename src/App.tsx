@@ -4,9 +4,9 @@ import './singhub.css'
 import { DatePickerWithRange } from './singhub/search/DatePickerWithRang';
 import { TimeSelector } from './singhub/search/TimeSelector';
 import { GenderSelector } from './singhub/search/GenderSelector';
+import { SiteMenu } from './singhub/search/SiteMenu';
 
 function App() {
-
   return (
     <>
       <div className="sticky mx-0 top-0 right-0 left-0 w-screen border-b border-gray-300 bg-white pt-10 pb-4">
@@ -49,10 +49,13 @@ function App() {
             </span>
           </div> */}
 
-          <div className="flex space-x-4">
-            <DatePickerWithRange id="search-date-range" className="mb-4 w-65" />
-            <TimeSelector className="mb-4 w-55" />
-            <GenderSelector className="mb-4 w-55" />
+          <div className="mb-4">
+            <SiteMenu className="w-65" />
+          </div>
+          <div className="flex space-x-4 mb-4">
+            <DatePickerWithRange id="search-date-range" className="min-w-65" />
+            <TimeSelector className="min-w-55" />
+            <GenderSelector className="min-w-35" />
           </div>
 
           {/* <button>Apply</button> */}

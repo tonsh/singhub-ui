@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useState } from "react"
 import { format } from "date-fns"
 import { DateRange } from "react-day-picker"
 
@@ -19,16 +19,14 @@ interface DatePickerWithRangeProps {
 
 function CalendarIcon() {
   return (
-    <span className="ml-2 text-gray-500">
-      <svg fill="none" viewBox="0 0 24 24" className="size-5 stroke-current stroke-1.5">
-        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    </span>
+    <svg fill="none" viewBox="0 0 24 24" className="size-5 stroke-gray-400 stroke-1.5 ml-2">
+      <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
   )
 }
 
 export function DatePickerWithRange({ className, id="date" }: DatePickerWithRangeProps) {
-  const [date, setDate] = React.useState<DateRange | undefined>()
+  const [date, setDate] = useState<DateRange | undefined>()
 
   return (
     <div className={cn("grid gap-2", className)}>
