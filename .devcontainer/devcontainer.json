@@ -2,7 +2,7 @@
 	"name": "singhub-ui",
 	"build": { "dockerfile": "Dockerfile" },
 	"remoteUser": "root",
-	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot",
+	"postCreateCommand": "sudo apt update && sudo apt install -y vim pipx && pipx install dotbot && make instal",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/git:1": {},
