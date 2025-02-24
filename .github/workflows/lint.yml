@@ -5,13 +5,15 @@ on:
     branches:
       - master
     paths:
-      - '**/*.{ts,tsx}'
+      - '**/*.tsx'
+      - '**/*.ts'
 
   pull_request:
     branches:
       - master
     paths:
-      - '**/*.{ts,tsx}'
+      - '**/*.tsx'
+      - '**/*.ts'
 
 jobs:
   build:
@@ -28,5 +30,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
-        npm install
+        make install
         make lint
