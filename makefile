@@ -1,7 +1,12 @@
 .PHONY: lint install build-css
 
-lint:
+eslint:
 	npm run lint
+
+stylelint:
+	npx stylelint "**/*.scss"
+
+lint: eslint stylelint
 
 install:
 	rm -rf node_modules package-lock.json
