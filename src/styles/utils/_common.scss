@@ -1,0 +1,12 @@
+$base-space: 4px;
+
+body {
+  display: block;
+}
+
+@for $i from 1 through 10 {
+  .size-#{$i} {
+    width: $base-space * $i;
+    height: $base-space * $i;
+  }
+}

@@ -1,0 +1,18 @@
+@use "../utils/mixins" as *;
+
+:root {
+  --border-width: 1px;
+}
+
+.search-box {
+  @include sticky(0, 0, 0);
+  @include flex-center;
+
+  width: 100vw;
+  border-bottom: var(--border-width) solid var(--color-gray-300);
+  padding: 10px 0 4px;
+}
+
+.search-input-bar {
+  @include flex-center;
+}

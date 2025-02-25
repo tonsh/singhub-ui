@@ -4,7 +4,9 @@ import SearchBar from './singhub/search/SearchBar'
 function App() {
   return (
     <>
-      <SearchBar />
+      <div className="App">
+        <SearchBar />
+      </div>
     </>
   )
 }
