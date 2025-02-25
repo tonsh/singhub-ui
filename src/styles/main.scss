@@ -1,12 +1,2 @@
-@use "base";
-
-.space-1 {
-  width: base.$base-space;
-}
-
-.size-4 {
-  $size: 4px;
-
-  width: $size * 4;
-  height: $size * 4;
-}
+@use "theme";
+@use "utils/common";

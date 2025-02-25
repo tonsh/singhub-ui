@@ -12,5 +12,8 @@ install:
 	rm -rf node_modules package-lock.json
 	npm install --legacy-peer-deps
 
-build-css:
+css-build:
 	npx sass src/styles/main.scss dist/styles.css
+
+css-watch:
+	npx sass --watch src/styles/main.scss dist/styles.css

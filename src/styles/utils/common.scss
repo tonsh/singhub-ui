@@ -1,0 +1,8 @@
+$base-space: 4px;
+
+@for $i from 1 through 10 {
+    .size-#{$i} {
+        width: $base-space * $i;
+        height: $base-space * $i;
+    }
+}
