@@ -2,17 +2,102 @@
 
 :root {
   --border-width: 1px;
+  --border: var(--border-width) solid var(--color-gray-300);
+  --round-full: calc(infinity * 1px);
 }
 
-.search-box {
+.search-container {
   @include sticky(0, 0, 0);
   @include flex-center;
 
   width: 100vw;
-  border-bottom: var(--border-width) solid var(--color-gray-300);
-  padding: 10px 0 4px;
+  border-bottom: var(--border);
+  padding: 40px 0 16px;
 }
 
-.search-input-bar {
+svg {
+  @include icon(20px, var(--color-gray-600), 1.5px);
+}
+
+input {
+  color: var(--color-gray-500);
+  outline: none;
+  padding: 10px 9px;
+
+  &::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+
+.search-bar{
   @include flex-center;
+
+  .filter-button {
+    color: var(--color-gray-600);
+    padding: 0 8px;
+    border: none;
+
+    &:focus {
+      outline-style: none;
+    }
+
+    svg {
+      &:hover {
+        stroke: var(--color-blue-500);
+      }
+
+      &:active {
+        stroke: var(--color-gray-700);
+      }
+    }
+  }
+}
+
+.search-inputs {
+  @include flex-center;
+
+  border: var(--border);
+  border-radius: var(--round-full);
+  color: var(--color-gray-500);
+
+  &:focus-within {
+    border-color: var(--color-gray-400);
+  }
+
+  .keyword-field {
+    @include flex-center;
+
+    padding: 0 16px;
+    border-right: var(--border);
+  }
+
+  .postcode-field {
+    @include flex-center;
+
+    padding: 0 16px;
+  }
+
+  .search-button {
+    color: var(--color-white);
+    font-weight: 600;
+    background-color: var(--color-red-400);
+    border: none;
+    border-radius: var(--round-full);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: var(--color-red-500);
+    }
+
+    &:active {
+      background-color: var(--color-red-600);
+    }
+
+    &:focus {
+      outline-style: none;
+    }
+  }
 }
