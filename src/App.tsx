@@ -1,6 +1,6 @@
 import './App.css'
-import SearchBar from './singhub/search/SearchBar'
 import './styles/main.scss';
+import SearchBar from './singhub/search/SearchBar'
 
 function App() {
   return (

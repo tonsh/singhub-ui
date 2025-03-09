@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Space, DatePicker, ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
+
 const DateIcon = () => {
   return (
     <svg fill="none" viewBox="0 0 24 24">
@@ -54,7 +55,7 @@ export default function SearchBar() {
           </button>
         </div>
 
-        <div className={`filter-panel${isFilterOpen ? ' hide' : ''}`}>
+        <div className={`filter-panel${!isFilterOpen ? ' hide' : ''}`}>
           <ConfigProvider theme={{
             components: {
               DatePicker: {
