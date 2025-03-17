@@ -1,4 +1,9 @@
 {
+    "editor.indentSize": "tabSize",
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
     "stylelint.config": {
         "extends": ["stylelint-config-standard-scss"]
     },

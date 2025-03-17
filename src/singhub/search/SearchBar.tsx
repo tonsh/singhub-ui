@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import GroupSelector from './GroupSelector';
 import DateRange from './DateRange';
+import SearchList from './SearchList';
 
 export default function SearchBar() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -44,6 +45,12 @@ export default function SearchBar() {
           <GroupSelector uri="/location/" label="Loc" groupPlaceholder="Region" placeholder="Venue" />
           <DateRange />
         </div>
+      </div>
+
+      <div className="container">
+        <ul>
+          <SearchList uri="/subject/list/"/>
+        </ul>
       </div>
     </>
   );

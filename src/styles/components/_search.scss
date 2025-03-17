@@ -14,10 +14,7 @@
   width: 100vw;
   border-bottom: var(--border);
   padding: 40px 0 16px;
-
-  svg {
-    @include icon(20px, var(--color-gray-600), 1.5px);
-  }
+  background-color: var(--color-white);
 
   input {
     color: var(--text-color);
@@ -28,6 +25,35 @@
       color: var(--color-gray-400);
     }
   }
+
+  svg {
+    @include icon(20px, var(--color-gray-600), 1.5px);
+  }
+}
+
+@mixin tag($bg-color, $text-color, $font-size: "inherit", $font-weight: 500) {
+  @include flex-center;
+
+  background-color: $bg-color;
+  color: $text-color;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  border: var(--border);
+  border-radius: var(--round-full);
+  padding: 4px 8px;
+  margin-right: 4px;
+}
+
+@mixin circle($color, $stroke: 3px) {
+  color: $color;
+  stroke: $color;
+  stroke-width: $stroke;
+}
+
+.container svg {
+  @include icon(16px, var(--color-gray-600), 1.5px);
+
+  margin-right: 8px;
 }
 
 .search-bar{
@@ -147,3 +173,58 @@
     }
   }
 }
+
+.container {
+  padding-block: 16px;
+
+  .item-box {
+    padding: 14px;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: var(--border);
+    background-color: var(--color-white);
+    max-width: 896px;
+    margin-inline: auto;
+    box-sizing: border-box;
+
+    .item-title {
+      font-size: 18px;
+      line-height: inherit;
+      font-weight: 600;
+    }
+
+    .item-info {
+      margin-top: 12px;
+
+      .item-row {
+        display: flex;
+        align-items: center;
+        color: var(--color-gray-600);
+        font-size: 16px;
+        line-height: calc(1.25 / 0.875);
+        margin-top: 8px;
+
+        .item-register-normal {
+          @include tag(var(--color-green-100), var(--color-green-800), 12px);
+        }
+
+        .item-register-unvalidated {
+          @include tag(var(--color-red-100), var(--color-red-800), 12px);
+        }
+
+        .item-intensity {
+          @include tag(var(--color-yellow-100), var(--color-yellow-800), 12px);
+        }
+
+        .item-circle-first {
+          @include circle(var(--color-gray-200), 3px);
+        }
+
+        .item-circle-second {
+          @include circle(var(--color-blue-400), 6px);
+        }
+      }
+    }
+  }
+}
+
