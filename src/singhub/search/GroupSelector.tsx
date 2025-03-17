@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Select, Space, ConfigProvider } from 'antd';
-
-interface GroupItem {
-  uuid: string;
-  name: string;
-}
+import { Label } from './types';
 
 interface GroupData {
-  group: Array<GroupItem>;
-  items: Array<GroupItem>;
+  group: Label;
+  items: Array<Label>;
 }
 
 interface SelectorOption {
@@ -47,7 +43,7 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
         const data: SelectorData = {};
         const groups: SelectorOption[] = [];
         result.forEach((item: GroupData) => {
-            data[item.group.uuid] = item.items.map((opt: GroupItem) => ({value: opt.uuid, label: opt.name}));
+            data[item.group.uuid] = item.items.map((opt: Label) => ({value: opt.uuid, label: opt.name}));
             groups.push({value: item.group.uuid, label: item.group.name});
         });
         setData(data);
