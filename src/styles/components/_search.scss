@@ -2,10 +2,36 @@
 
 :root {
   --text-color: var(--color-gray-500);
+  --svg-color: var(--color-gray-600);
   --border-color: var(--color-gray-300);
   --border-width: 1px;
   --border: var(--border-width) solid var(--border-color);
+  --border-color-hover: var(--color-gray-400);
   --round-full: calc(infinity * 1px);
+  --background-color: var(--color-white);
+  --background-color-hover: var(--color-gray-100);
+  --title-color: var(--color-black);
+}
+
+.dark-mode {
+  --text-color: var(--color-gray-200);
+  --svg-color: var(--color-gray-300);
+  --border-color: var(--color-gray-100);
+  --border-color-hover: var(--color-gray-200);
+  --shadow-color: rgb(0 0 0 / 0.3);
+  --background-color: var(--color-gray-700);
+  --background-color-hover: var(--color-gray-600);
+  --title-color: var(--color-gray-200);
+}
+
+.search-wrapper {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  svg {
+    @include icon(20px, var(--svg-color), 1.5px);
+  }
 }
 
 .search-container {
@@ -14,7 +40,7 @@
   width: 100vw;
   border-bottom: var(--border);
   padding: 40px 0 16px;
-  background-color: var(--color-white);
+  background-color: var(--background-color);
 
   input {
     color: var(--text-color);
@@ -24,10 +50,6 @@
     &::placeholder {
       color: var(--color-gray-400);
     }
-  }
-
-  svg {
-    @include icon(20px, var(--color-gray-600), 1.5px);
   }
 }
 
@@ -48,12 +70,6 @@
   color: $color;
   stroke: $color;
   stroke-width: $stroke;
-}
-
-.container svg {
-  @include icon(16px, var(--color-gray-600), 1.5px);
-
-  margin-right: 8px;
 }
 
 .search-bar{
@@ -92,7 +108,7 @@
     color: var(--color-gray-500);
 
     &:focus-within {
-      border-color: var(--color-gray-400);
+      border-color: var(--border-color-hover);
     }
 
     .keyword-field {
@@ -182,12 +198,18 @@
     margin-top: 20px;
     border-radius: 8px;
     border: var(--border);
-    background-color: var(--color-white);
+    background-color: var(--background-color);
     max-width: 896px;
     margin-inline: auto;
     box-sizing: border-box;
 
+    &:hover {
+      background-color: var(--background-color-hover);
+      border-color: var(--border-color-hover);
+    }
+
     .item-title {
+      color: var(--title-color);
       font-size: 18px;
       line-height: inherit;
       font-weight: 600;
@@ -199,10 +221,14 @@
       .item-row {
         display: flex;
         align-items: center;
-        color: var(--color-gray-600);
+        color: var(--text-color);
         font-size: 16px;
         line-height: calc(1.25 / 0.875);
         margin-top: 8px;
+
+        span {
+          margin-left: 8px;
+        }
 
         .item-register-normal {
           @include tag(var(--color-green-100), var(--color-green-800), 12px);
