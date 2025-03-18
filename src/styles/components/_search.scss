@@ -193,7 +193,7 @@
 .container {
   padding-block: 16px;
 
-  .item-box {
+  .item-card {
     padding: 14px;
     margin-top: 20px;
     border-radius: 8px;
@@ -208,17 +208,17 @@
       border-color: var(--border-color-hover);
     }
 
-    .item-title {
+    .card-title {
       color: var(--title-color);
       font-size: 18px;
       line-height: inherit;
       font-weight: 600;
     }
 
-    .item-info {
+    .card-info {
       margin-top: 12px;
 
-      .item-row {
+      .card-row {
         display: flex;
         align-items: center;
         color: var(--text-color);
