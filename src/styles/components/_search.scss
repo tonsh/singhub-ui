@@ -18,7 +18,7 @@
   --svg-color: var(--color-gray-300);
   --border-color: var(--color-gray-100);
   --border-color-hover: var(--color-gray-200);
-  --shadow-color: rgb(0 0 0 / 0.3);
+  --shadow-color: rgb(0 0 0 / 30%);
   --background-color: var(--color-gray-700);
   --background-color-hover: var(--color-gray-600);
   --title-color: var(--color-gray-200);
@@ -75,6 +75,11 @@
 .search-bar{
   @include flex-center;
 
+  @media (width <= 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .filter-button {
     color: var(--color-gray-600);
     padding: 0 8px;
@@ -102,6 +107,10 @@
 
   .search-inputs {
     @include flex-center;
+
+    @media (width <= 576px) {
+      flex-direction: column;
+    }
 
     border: var(--border);
     border-radius: var(--round-full);
@@ -195,17 +204,35 @@
 
   .item-card {
     padding: 14px;
-    margin-top: 20px;
     border-radius: 8px;
     border: var(--border);
     background-color: var(--background-color);
     max-width: 896px;
     margin-inline: auto;
+    margin: 20px 10px 0;
     box-sizing: border-box;
 
     &:hover {
       background-color: var(--background-color-hover);
       border-color: var(--border-color-hover);
+    }
+
+    @media (width <= 768px) {
+      padding: 16px;
+      border-radius: 10px;
+      max-width: 600px;
+    }
+
+    @media (width <= 576px) {
+      max-width: calc(100% - 24px); // 在小屏幕上减少边距
+      width: calc(100% - 24px); // 左右各留12px的边距
+    }
+
+    @media (width <= 480px) {
+      padding: 12px;
+      margin-bottom: 16px;
+      max-width: calc(100% - 16px); // 在更小屏幕上进一步减少边距
+      width: calc(100% - 16px); // 左右各留8px的边距
     }
 
     .card-title {
