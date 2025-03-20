@@ -19,13 +19,13 @@ interface SelectorData {
 const ArrowDownIcon = () => {
   return (
     <svg fill="none" viewBox="0 0 24 24">
-    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+      <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
     </svg>
   );
 };
 
 
-export default function GroupSelector({ uri, label, groupPlaceholder, placeholder }: { uri: string, label: string, groupPlaceholder: string, placeholder: string }) {
+export default function GroupSelector({ uri, label, groupPlaceholder, placeholder, screenSize }: { uri: string, label: string, groupPlaceholder: string, placeholder: string, screenSize: string }) {
   const [data, setData] = useState<SelectorData>({});
   const [groups, setGroups] = useState<SelectorOption[]>([]);
   const [items, setItems] = useState<SelectorOption[]>([]);
@@ -81,7 +81,7 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
                 activeOutlineColor: 'none',  // 移除阴影
             }
             }}}>
-            <Space direction="horizontal" size={12}>
+            <Space direction={screenSize === 'large' ? 'horizontal' : 'vertical'} size={12}>
                 <Select
                     options={groups}
                     loading={loading}
@@ -89,7 +89,7 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
                     allowClear={true}
                     suffixIcon={<ArrowDownIcon />}
                     onChange={onGroupChange}
-                    style={{width: '170px'}}
+                    style={{ width: '170px' }}
                 />
                 <Select
                     options={items}
@@ -99,7 +99,7 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
                     suffixIcon={<ArrowDownIcon />}
                     value={selectedItem}
                     onChange={(value) => setSelectedItem(value)}
-                    style={{width: '350px'}}
+                    style={{ width: 'var(--input-max-width)' }}
                 />
             </Space>
         </ConfigProvider>

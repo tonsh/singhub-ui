@@ -17,31 +17,33 @@ const DateIcon = () => {
     );
   };
 
-export default function DateRange() {
+export default function DateRange({ screenSize }: { screenSize: string }) {
     return <>
       <div className="filter-row">
         <ConfigProvider theme={{
             components: {
-            DatePicker: {
+              DatePicker: {
                 activeBorderColor: 'var(--color-gray-400)',
                 hoverBorderColor: 'var(--border-color)',
                 activeShadow: 'none',  // 移除阴影
-            }
+              }
             }
         }}>
-            <Space direction="vertical">
-              <DatePicker.RangePicker
-                className="filter-date-picker"
-                placeholder={['Start Date', 'End Date']}
-                minDate={dayjs(new Date())}
-                maxDate={dayjs(new Date()).add(6, 'months')}
-                format='MMM DD, YYYY'
-                popupStyle={{ '--active-bar-bg': 'var(--color-red-600)' } as React.CSSProperties}
-                suffixIcon={<DateIcon />}
-                separator={<SeparatorIcon />}
-                size='small'
-              />
-            </Space>
+          <Space direction={screenSize === 'large' ? 'horizontal' : 'vertical'}>
+            <span className="filter-label">Date Range: </span>
+            <DatePicker.RangePicker
+              className="filter-date-picker"
+              placeholder={['Start Date', 'End Date']}
+              minDate={dayjs(new Date())}
+              maxDate={dayjs(new Date()).add(6, 'months')}
+              format='MMM DD, YYYY'
+              popupStyle={{ '--active-bar-bg': 'var(--color-red-600)' } as React.CSSProperties}
+              suffixIcon={<DateIcon />}
+              separator={<SeparatorIcon />}
+              size='small'
+              style={{ width: 'var(--input-max-width)' }}
+            />
+          </Space>
         </ConfigProvider>
       </div>
     </>

@@ -11,6 +11,7 @@
   --background-color: var(--color-white);
   --background-color-hover: var(--color-gray-100);
   --title-color: var(--color-black);
+  --input-max-width: 350px;
 }
 
 .dark-mode {
@@ -72,13 +73,28 @@
   stroke-width: $stroke;
 }
 
+%primary-button {
+  color: var(--color-white);
+  background-color: var(--color-red-400);
+  border: 1px solid var(--color-red-400);
+
+  &:hover {
+    background-color: var(--color-red-500) !important;
+  }
+
+  &:active {
+    background-color: var(--color-red-600) !important;
+  }
+
+  &:focus {
+    outline-style: none;
+  }
+}
+
 .search-bar{
   @include flex-center;
 
-  @media (width <= 768px) {
-    flex-direction: column;
-    gap: 1rem;
-  }
+  margin: 0 16px;
 
   .filter-button {
     color: var(--color-gray-600);
@@ -108,10 +124,6 @@
   .search-inputs {
     @include flex-center;
 
-    @media (width <= 576px) {
-      flex-direction: column;
-    }
-
     border: var(--border);
     border-radius: var(--round-full);
     color: var(--color-gray-500);
@@ -120,11 +132,21 @@
       border-color: var(--border-color-hover);
     }
 
+    input {
+      @media (width <= 768px) {
+        padding: 0;
+      }
+    }
+
     .keyword-field {
       @include flex-center;
 
       padding: 0 16px;
       border-right: var(--border);
+
+      @media (width <= 768px) {
+        padding-right: 0;
+      }
     }
 
     .postcode-field {
@@ -134,26 +156,14 @@
     }
 
     .search-button {
-      color: var(--color-white);
+      @extend %primary-button;
+
       font-weight: 600;
-      background-color: var(--color-red-400);
       border: none;
       border-radius: var(--round-full);
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       padding: 10px 20px;
-
-      &:hover {
-        background-color: var(--color-red-500);
-      }
-
-      &:active {
-        background-color: var(--color-red-600);
-      }
-
-      &:focus {
-        outline-style: none;
-      }
     }
   }
 }
@@ -162,6 +172,7 @@
   margin: 0 auto;
   max-width: 600px;
 
+  // ------ deprecated ---------
   .filter-row {
     margin-top: 16px;
   }
@@ -197,10 +208,74 @@
       inset-inline-end: 16px;
     }
   }
+
+  // ------ END deprecated ---------
+}
+
+.filter-modal {
+  svg {
+    @include icon(20px, var(--svg-color), 1.5px);
+  }
+
+  button.ok-button{
+    @extend %primary-button;
+  }
+
+  .filter-row {
+    margin-top: 16px;
+
+    .postcode-input {
+      padding: 8px 16px;
+
+      &:focus-within {
+        border-color: var(--border-color-hover);
+      }
+    }
+  }
+
+  .filter-date-picker {
+    font-size: inherit;
+    padding: 0 11px;
+
+    input {
+      font-size: inherit;
+      line-height: inherit;
+      padding: 8px;
+      color: var(--text-color);
+      width: 120px;
+    }
+
+    .ant-picker-range-separator {
+      padding: 0;
+    }
+  }
+
+  .ant-select {
+    height: 37px;
+    width: 220px;
+    font-size: inherit !important;
+
+    .ant-select-selector {
+      font-size: inherit !important;
+      color: var(--text-color) !important;
+    }
+
+    .ant-select-clear {
+      inset-inline-end: 16px;
+    }
+  }
+}
+
+// 强制修改 DateRange.RangePicker 组件 panels 纯直展示
+.ant-picker-panels {
+  @media (width <= 480px) {
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 
 .container {
-  padding-block: 16px;
+  @include flex-center;
 
   .item-card {
     padding: 14px;
@@ -220,7 +295,7 @@
     @media (width <= 768px) {
       padding: 16px;
       border-radius: 10px;
-      max-width: 600px;
+      width: 80%;
     }
 
     @media (width <= 576px) {
