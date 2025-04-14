@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Label } from "./types";
+import { CategoryIcon } from "./CategoryIcon";
 
 interface Subject {
   uuid: string;
   title: string;
   url: string;
-  category: Label | null;
+  category_icon: string | null;
   info: string | null;
   register_info: string | null;
+  is_full: boolean;
   venue: string | null;
   date_range: string | null;
   open_time: string | null;
@@ -57,28 +58,21 @@ export default function SearchList({ uri }: { uri: string }) {
               </h2>
 
               <div className="card-info">
-                <div className="card-row">
-                  {item.category && (
-                    <>
-                      <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" style={{width: 20, height: 20}}>
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M5.905 5h3.418a1 1 0 0 1 .928 .629l1.143 2.856a3 3 0 0 0 2.207 1.83l4.717 .926a2.084 2.084 0 0 1 1.682 2.045v.714a1 1 0 0 1 -1 1h-13.895a1 1 0 0 1 -1 -1.1l.8 -8a1 1 0 0 1 1 -.9z" />
-                        <path d="M8 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M16 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                      </svg>
-                    </>
-                  )}
-                  <span>{item.info}</span>
-                </div>
-
                 {item.register_info && (
                   <div className="card-row">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                       </svg>
-                      <span>{item.register_info}</span>
+                      <span className={`${item.is_full ? 'alert-warning' : 'alert-normal'}`}>{item.register_info}</span>
                   </div>
                 )}
+
+                <div className="card-row">
+                  {item.category_icon && (
+                    <CategoryIcon name={item.category_icon} className="category-icon" />
+                  )}
+                  <span>{item.info}</span>
+                </div>
 
                 {item.venue && (
                   <div className="card-row">
