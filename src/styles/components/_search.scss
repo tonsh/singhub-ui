@@ -73,6 +73,13 @@
   stroke-width: $stroke;
 }
 
+@mixin alert($color, $text-color) {
+  background-color: $color;
+  color: $text-color !important;
+  padding: 3px 12px;
+  border-radius: 100px;
+}
+
 %primary-button {
   color: var(--color-white);
   background-color: var(--color-red-400);
@@ -330,6 +337,19 @@
 
         span {
           margin-left: 8px;
+        }
+
+        .alert-normal {
+          @include alert(var(--color-green-100), var(--color-green-800));
+        }
+
+        .alert-warning {
+          @include alert(var(--color-red-100), var(--color-red-800));
+        }
+
+        .category-icon {
+          width: 20px;
+          height: 20px;
         }
 
         .item-register-normal {
