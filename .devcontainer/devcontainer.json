@@ -6,7 +6,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/git:1": {},
-		"ghcr.io/devcontainers/features/python:1": {}
+		"ghcr.io/devcontainers/features/python:1": {},
+		"./features/claude": {}
 	},
 
 	"customizations": {
@@ -16,7 +17,8 @@
 				"ms-python.python",
 				"ms-vscode.makefile-tools",
 				"stylelint.vscode-stylelint",
-				"dbaeumer.vscode-eslint"
+				"dbaeumer.vscode-eslint",
+				"Anthropic.claude-code"
 			]
 		}
 	},
