@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import GroupSelector from './GroupSelector';
 import DateRange from './DateRange';
 import SearchList from './SearchList';
@@ -22,16 +23,31 @@ export default function SearchBar() {
   const [screenSize, setScreenSize] = useState('large');
   const [searchParams, setSearchParams] = useState('');
 
+  // 从 URL 参数初始化筛选状态
+  const initializeFromURL = (): FilterState => {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const startDate = urlParams.get('start_date');
+    const endDate = urlParams.get('end_date');
+    let dateRange: [Dayjs | null, Dayjs | null] | null = null;
+    
+    if (startDate && endDate) {
+      dateRange = [dayjs(startDate), dayjs(endDate)];
+    }
+    
+    return {
+      keyword: urlParams.get('q') || '',
+      postcode: urlParams.get('postcode') || '',
+      ccaGroup: undefined, // Group 需要从 API 数据中反推
+      ccaItem: urlParams.get('cca') || undefined,
+      locationGroup: undefined, // Group 需要从 API 数据中反推
+      locationItem: urlParams.get('location') || undefined,
+      dateRange,
+    };
+  };
+
   // 筛选条件状态
-  const [filterState, setFilterState] = useState<FilterState>({
-    keyword: '',
-    postcode: '',
-    ccaGroup: undefined,
-    ccaItem: undefined,
-    locationGroup: undefined,
-    locationItem: undefined,
-    dateRange: null,
-  });
+  const [filterState, setFilterState] = useState<FilterState>(initializeFromURL());
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,6 +59,25 @@ export default function SearchBar() {
     window.addEventListener('resize', handleResize);
     // 组件卸载时移除事件监听
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 组件挂载时应用 URL 中的筛选条件
+  useEffect(() => {
+    const params = buildSearchParams(filterState);
+    setSearchParams(params);
+  }, []); // 只在组件挂载时执行一次
+
+  // 监听浏览器前进/后退按钮
+  useEffect(() => {
+    const handlePopState = () => {
+      const newState = initializeFromURL();
+      setFilterState(newState);
+      const params = buildSearchParams(newState);
+      setSearchParams(params);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const toggleFilter = () => {
@@ -81,18 +116,32 @@ export default function SearchBar() {
     return params.toString() ? `?${params.toString()}` : '';
   };
 
-  const handleOk = () => {
-    // 构建搜索参数
-    const params = buildSearchParams(filterState);
+  const updateSearchAndURL = (filters: FilterState) => {
+    const params = buildSearchParams(filters);
     setSearchParams(params);
+    
+    // 更新浏览器 URL
+    const url = new URL(window.location.href);
+    if (params) {
+      url.search = params;
+    } else {
+      url.search = '';
+    }
+    
+    // 使用 pushState 更新 URL，不重新加载页面
+    window.history.pushState(null, '', url.toString());
+  };
+
+  const handleOk = () => {
+    // 构建搜索参数并更新 URL
+    updateSearchAndURL(filterState);
     
     // 关闭筛选模态框
     setIsFilterOpen(false);
   };
 
   const handleSearch = () => {
-    const params = buildSearchParams(filterState);
-    setSearchParams(params);
+    updateSearchAndURL(filterState);
   };
 
   const toggleDarkMode = () => {
