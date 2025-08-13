@@ -1,14 +1,37 @@
 import { useState, useEffect } from 'react';
 import { Modal } from 'antd';
+import { Dayjs } from 'dayjs';
 import GroupSelector from './GroupSelector';
 import DateRange from './DateRange';
 import SearchList from './SearchList';
 import PostcodeInput from './PostcodeInput';
 
+interface FilterState {
+  keyword: string;
+  postcode: string;
+  ccaGroup: string | undefined;
+  ccaItem: string | undefined;
+  locationGroup: string | undefined;
+  locationItem: string | undefined;
+  dateRange: [Dayjs | null, Dayjs | null] | null;
+}
+
 export default function SearchBar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [screenSize, setScreenSize] = useState('large');
+  const [searchParams, setSearchParams] = useState('');
+
+  // 筛选条件状态
+  const [filterState, setFilterState] = useState<FilterState>({
+    keyword: '',
+    postcode: '',
+    ccaGroup: undefined,
+    ccaItem: undefined,
+    locationGroup: undefined,
+    locationItem: undefined,
+    dateRange: null,
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +49,52 @@ export default function SearchBar() {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  const buildSearchParams = (filters: FilterState): string => {
+    const params = new URLSearchParams();
+    
+    // 添加关键词搜索
+    if (filters.keyword.trim()) {
+      params.append('q', filters.keyword.trim());
+    }
+    
+    // 添加邮政编码
+    if (filters.postcode.trim()) {
+      params.append('postcode', filters.postcode.trim());
+    }
+    
+    // 添加 CCA 筛选
+    if (filters.ccaItem) {
+      params.append('cca', filters.ccaItem);
+    }
+    
+    // 添加位置筛选
+    if (filters.locationItem) {
+      params.append('location', filters.locationItem);
+    }
+    
+    // 添加日期范围
+    if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
+      params.append('start_date', filters.dateRange[0].format('YYYY-MM-DD'));
+      params.append('end_date', filters.dateRange[1].format('YYYY-MM-DD'));
+    }
+    
+    return params.toString() ? `?${params.toString()}` : '';
+  };
+
+  const handleOk = () => {
+    // 构建搜索参数
+    const params = buildSearchParams(filterState);
+    setSearchParams(params);
+    
+    // 关闭筛选模态框
+    setIsFilterOpen(false);
+  };
+
+  const handleSearch = () => {
+    const params = buildSearchParams(filterState);
+    setSearchParams(params);
+  };
+
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -40,7 +109,13 @@ export default function SearchBar() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
-                <input type="text" placeholder="Search by keyword" />
+                <input 
+                  type="text" 
+                  placeholder="Search by keyword" 
+                  value={filterState.keyword}
+                  onChange={(e) => setFilterState(prev => ({...prev, keyword: e.target.value}))}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                />
               </div>
 
               {screenSize === 'large' && (
@@ -50,11 +125,17 @@ export default function SearchBar() {
                       <path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                       <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path>
                     </svg>
-                    <input placeholder="Enter postal code" type="text" />
+                    <input 
+                      placeholder="Enter postal code" 
+                      type="text"
+                      value={filterState.postcode}
+                      onChange={(e) => setFilterState(prev => ({...prev, postcode: e.target.value}))}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    />
                   </div>
                 </>
               )}
-              <button className="search-button">Search</button>
+              <button className="search-button" onClick={handleSearch}>Search</button>
             </div>
 
                 <button className="filter-button" title="More Filters" onClick={toggleFilter}>
@@ -93,18 +174,47 @@ export default function SearchBar() {
             okText="Search"
             cancelText="Cancel"
             okButtonProps={{ className: 'ok-button' }}
+            onOk={handleOk}
             onCancel={toggleFilter}
           >
-            <PostcodeInput screenSize={screenSize} />
-            <GroupSelector uri="/school/cca/" label="CCA" groupPlaceholder="Category" placeholder="Co-curricular activities" screenSize={screenSize} />
-            <GroupSelector uri="/location/" label="Loc" groupPlaceholder="Region" placeholder="Venue" screenSize={screenSize} />
-            <DateRange screenSize={screenSize} />
+            <PostcodeInput 
+              screenSize={screenSize} 
+              value={filterState.postcode}
+              onChange={(value) => setFilterState(prev => ({...prev, postcode: value}))}
+            />
+            <GroupSelector 
+              uri="/school/cca/" 
+              label="CCA" 
+              groupPlaceholder="Category" 
+              placeholder="Co-curricular activities" 
+              screenSize={screenSize}
+              groupValue={filterState.ccaGroup}
+              itemValue={filterState.ccaItem}
+              onGroupChange={(value) => setFilterState(prev => ({...prev, ccaGroup: value, ccaItem: undefined}))}
+              onItemChange={(value) => setFilterState(prev => ({...prev, ccaItem: value}))}
+            />
+            <GroupSelector 
+              uri="/location/" 
+              label="Loc" 
+              groupPlaceholder="Region" 
+              placeholder="Venue" 
+              screenSize={screenSize}
+              groupValue={filterState.locationGroup}
+              itemValue={filterState.locationItem}
+              onGroupChange={(value) => setFilterState(prev => ({...prev, locationGroup: value, locationItem: undefined}))}
+              onItemChange={(value) => setFilterState(prev => ({...prev, locationItem: value}))}
+            />
+            <DateRange 
+              screenSize={screenSize}
+              value={filterState.dateRange}
+              onChange={(dates) => setFilterState(prev => ({...prev, dateRange: dates}))}
+            />
           </Modal>
         </div>
 
         <div className="container">
           <ul>
-            <SearchList uri="/subject/list/"/>
+            <SearchList uri={`/subject/list/${searchParams}`} />
           </ul>
         </div>
       </div>

@@ -9,7 +9,13 @@ const PostcodeIcon = () => {
   );
 };
 
-export default function PostcodeInput({ screenSize }: { screenSize: string }) {
+interface PostcodeInputProps {
+  screenSize: string;
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+export default function PostcodeInput({ screenSize, value, onChange }: PostcodeInputProps) {
   return (
     <div className="filter-row">
       <ConfigProvider theme={{
@@ -27,6 +33,8 @@ export default function PostcodeInput({ screenSize }: { screenSize: string }) {
             placeholder="Enter postal code"
             allowClear={true}
             prefix={<PostcodeIcon />}
+            value={value}
+            onChange={(e) => onChange?.(e.target.value)}
             style={{ width: 'var(--input-max-width)' }}
            />
         </Space>
