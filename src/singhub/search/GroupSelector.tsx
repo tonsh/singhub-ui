@@ -25,11 +25,32 @@ const ArrowDownIcon = () => {
 };
 
 
-export default function GroupSelector({ uri, label, groupPlaceholder, placeholder, screenSize }: { uri: string, label: string, groupPlaceholder: string, placeholder: string, screenSize: string }) {
+interface GroupSelectorProps {
+  uri: string;
+  label: string;
+  groupPlaceholder: string;
+  placeholder: string;
+  screenSize: string;
+  groupValue?: string;
+  itemValue?: string;
+  onGroupChange?: (value: string | undefined) => void;
+  onItemChange?: (value: string | undefined) => void;
+}
+
+export default function GroupSelector({ 
+  uri, 
+  label, 
+  groupPlaceholder, 
+  placeholder, 
+  screenSize,
+  groupValue,
+  itemValue,
+  onGroupChange,
+  onItemChange
+}: GroupSelectorProps) {
   const [data, setData] = useState<SelectorData>({});
   const [groups, setGroups] = useState<SelectorOption[]>([]);
   const [items, setItems] = useState<SelectorOption[]>([]);
-  const [selectedItem, setSelectedItem] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -58,15 +79,21 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
     fetchData();
   }, [uri]);
 
-  const onGroupChange = (value: string) => {
-    if (data[value]) {
-      setItems(data[value]);
-      setSelectedItem(undefined);
-    }else {
-      // 当清除组选择时，也清空 Items 选项
+  // 当 groupValue 改变时，更新 items 选项
+  useEffect(() => {
+    if (groupValue && data[groupValue]) {
+      setItems(data[groupValue]);
+    } else {
       setItems([]);
-      setSelectedItem(undefined);
     }
+  }, [groupValue, data]);
+
+  const handleGroupChange = (value: string) => {
+    onGroupChange?.(value);
+  };
+
+  const handleItemChange = (value: string) => {
+    onItemChange?.(value);
   };
 
   return (
@@ -88,7 +115,8 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
                     placeholder={groupPlaceholder}
                     allowClear={true}
                     suffixIcon={<ArrowDownIcon />}
-                    onChange={onGroupChange}
+                    value={groupValue}
+                    onChange={handleGroupChange}
                     style={{ width: '170px' }}
                 />
                 <Select
@@ -97,8 +125,8 @@ export default function GroupSelector({ uri, label, groupPlaceholder, placeholde
                     placeholder={placeholder}
                     allowClear={true}
                     suffixIcon={<ArrowDownIcon />}
-                    value={selectedItem}
-                    onChange={(value) => setSelectedItem(value)}
+                    value={itemValue}
+                    onChange={handleItemChange}
                     style={{ width: 'var(--input-max-width)' }}
                 />
             </Space>

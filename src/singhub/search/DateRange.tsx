@@ -1,5 +1,5 @@
 import { Space, DatePicker, ConfigProvider } from 'antd';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 const DateIcon = () => {
     return (
@@ -17,7 +17,13 @@ const DateIcon = () => {
     );
   };
 
-export default function DateRange({ screenSize }: { screenSize: string }) {
+interface DateRangeProps {
+  screenSize: string;
+  value?: [Dayjs | null, Dayjs | null] | null;
+  onChange?: (dates: [Dayjs | null, Dayjs | null] | null) => void;
+}
+
+export default function DateRange({ screenSize, value, onChange }: DateRangeProps) {
     return <>
       <div className="filter-row">
         <ConfigProvider theme={{
@@ -37,10 +43,11 @@ export default function DateRange({ screenSize }: { screenSize: string }) {
               minDate={dayjs(new Date())}
               maxDate={dayjs(new Date()).add(6, 'months')}
               format='MMM DD, YYYY'
-              popupStyle={{ '--active-bar-bg': 'var(--color-red-600)' } as React.CSSProperties}
               suffixIcon={<DateIcon />}
               separator={<SeparatorIcon />}
               size='small'
+              value={value}
+              onChange={onChange}
               style={{ width: 'var(--input-max-width)' }}
             />
           </Space>
