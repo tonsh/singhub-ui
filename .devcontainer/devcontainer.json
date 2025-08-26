@@ -19,12 +19,12 @@
 				"stylelint.vscode-stylelint",
 				"dbaeumer.vscode-eslint",
 				"Anthropic.claude-code"
-			]
-		},
-		"settings": {
-			"dotfiles.repository": "git@github.com:tonsh/dotfiles.git",
-			"dotfiles.installCommand": "install.sh",
-			"dotfiles.targetPath": "~/dotfiles"
+			],
+			"settings": {
+				"dotfiles.repository": "git@github.com:tonsh/dotfiles.git",
+				"dotfiles.installCommand": "install.sh",
+				"dotfiles.targetPath": "~/dotfiles"
+			}
 		}
 	},
 
